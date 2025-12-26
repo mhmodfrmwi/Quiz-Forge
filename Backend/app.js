@@ -4,8 +4,10 @@ const { connectDB } = require("./src/config/dbConfig");
 
 // Import Routes
 const authRoutes = require("./src/routes/authRoutes");
-const examRoutes = require("./src/routes/examRoutes");
 const questionRoutes = require("./src/routes/questionRoutes");
+const examRoutes = require("./src/routes/examRoutes");
+const studentRoutes = require("./src/routes/studentRoutes");
+const courseRoutes = require("./src/routes/courseRoutes");
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +24,8 @@ connectDB();
 app.use("/api/auth", authRoutes);
 app.use("/api/exams", examRoutes);
 app.use("/api/questions", questionRoutes);
+app.use("/api/student", studentRoutes);
+app.use("/api/courses", courseRoutes);
 
 // Health check route
 app.get("/api/health", (req, res) => {
