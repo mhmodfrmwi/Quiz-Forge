@@ -37,7 +37,20 @@ const getAllCourses = async (req, res) => {
     }
 }
 
+const getCourseTopics = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const request = new sql.Request();
+        request.input("id", sql.Int, id);
+        const result = await request.query("SELECT * FROM Topic WHERE crs_id = @id");
+        res.json(result.recordset);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
 module.exports = {
     assignStudentToCourse,
-    getAllCourses
+    getAllCourses,
+    getCourseTopics
 };

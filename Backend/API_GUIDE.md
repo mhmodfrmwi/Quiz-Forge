@@ -193,6 +193,29 @@ Enroll a student in a specific course.
     }
     ```
 
+### Get Course Topics
+Get all topics associated with a specific course.
+
+*   **Method:** `GET`
+*   **Endpoint:** `/api/courses/:id/topics`
+*   **Path Parameters:**
+    *   `:id` - Course ID
+*   **Success Response:**
+    ```json
+    [
+      {
+        "top_id": 1,
+        "top_name": "SQL Basics",
+        "crs_id": 101
+      },
+      {
+        "top_id": 2,
+        "top_name": "Joins",
+        "crs_id": 101
+      }
+    ]
+    ```
+
 ---
 
 ## 4. Exam Management (Instructor/Admin)
