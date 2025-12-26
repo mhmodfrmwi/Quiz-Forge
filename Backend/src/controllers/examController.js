@@ -18,8 +18,8 @@ const createExam = async (req, res) => {
     request.input("total", sql.Int, total);
     request.input("crs_id", sql.Int, crs_id);
     request.input("ins_id", sql.Int, ins_id);
-    await request.execute("sp_exam_c");
-    res.status(201).json({ message: "Exam created" });
+    const result = await request.execute("sp_exam_c");
+    res.status(201).json(result.recordset[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

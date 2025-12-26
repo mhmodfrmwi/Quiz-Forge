@@ -13,7 +13,7 @@ async function diagnose() {
 
         // Check SP definition
         const sp = await sql.query`
-            SELECT OBJECT_DEFINITION(OBJECT_ID('sp_choice_c')) as definition
+            SELECT OBJECT_DEFINITION(OBJECT_ID('sp_question_c')) as definition
         `;
         console.log("SP Definition:", sp.recordset[0].definition);
     } catch (err) {

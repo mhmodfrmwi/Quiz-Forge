@@ -12,7 +12,7 @@ const getAllQuestions = async (req, res) => {
 };
 
 const createQuestion = async (req, res) => {
-  const { text, type, score, correct, crs_id } = req.body;
+  const { text, type, score, correct, crs_id, top_id } = req.body;
   try {
     const request = new sql.Request();
     request.input("text", sql.NVarChar, text);
@@ -20,8 +20,9 @@ const createQuestion = async (req, res) => {
     request.input("score", sql.Int, score);
     request.input("correct", sql.NVarChar, correct);
     request.input("crs_id", sql.Int, crs_id);
-    await request.execute("sp_question_c");
-    res.status(201).json({ message: "Question created" });
+    request.input("top_id", sql.Int, top_id);
+    const result = await request.execute("sp_question_c");
+    res.status(201).json(result.recordset[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -29,7 +30,7 @@ const createQuestion = async (req, res) => {
 
 const updateQuestion = async (req, res) => {
   const { id } = req.params;
-  const { text, type, score, correct, crs_id } = req.body;
+  const { text, type, score, correct, crs_id, top_id } = req.body;
   try {
     const request = new sql.Request();
     request.input("id", sql.Int, id);
@@ -38,6 +39,7 @@ const updateQuestion = async (req, res) => {
     request.input("score", sql.Int, score);
     request.input("correct", sql.NVarChar, correct);
     request.input("crs_id", sql.Int, crs_id);
+    request.input("top_id", sql.Int, top_id);
     await request.execute("sp_question_u");
     res.json({ message: "Question updated" });
   } catch (err) {
@@ -76,8 +78,8 @@ const createChoice = async (req, res) => {
     const request = new sql.Request();
     request.input("text", sql.NVarChar, text);
     request.input("q_id", sql.Int, q_id);
-    await request.execute("sp_choice_c");
-    res.status(201).json({ message: "Choice created" });
+    const result = await request.execute("sp_choice_c");
+    res.status(201).json(result.recordset[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
