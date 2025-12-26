@@ -1,0 +1,83 @@
+--- INSTRUCTORS ---
+ID: 101, Name: Sara Youssef
+ID: 102, Name: Ahmed Ali
+ID: 103, Name: Ahmed Ali
+ID: 104, Name: Mohamed Youssef
+ID: 105, Name: Ahmed El-Sayed
+ID: 106, Name: Sara Hassan
+ID: 107, Name: Mohamed Ali
+ID: 108, Name: Laila Mahmoud
+ID: 110, Name: Mona Zaki
+ID: 111, Name: Tarek Osman
+ID: 112, Name: Noha Adel
+ID: 114, Name: Fatma Youssef
+ID: 115, Name: Waleed Gamal
+ID: 116, Name: Hoda Mansour
+ID: 117, Name: Youssef Sharif
+ID: 119, Name: Sherif Hegazy
+ID: 120, Name: Dina Amin
+ID: 121, Name: Khaled Nour
+ID: 123, Name: Mostafa Bakry
+ID: 124, Name: Nabil Gaber
+ID: 125, Name: Mohamed Ali
+ID: 126, Name: Laila Mahmoud
+ID: 128, Name: Mona Zaki
+ID: 129, Name: Tarek Osman
+ID: 130, Name: Noha Adel
+ID: 132, Name: Fatma Youssef
+ID: 133, Name: Waleed Gamal
+ID: 134, Name: Hoda Mansour
+ID: 135, Name: Youssef Sharif
+ID: 137, Name: Sherif Hegazy
+ID: 138, Name: Dina Amin
+ID: 139, Name: Khaled Nour
+ID: 141, Name: Mostafa Bakry
+ID: 142, Name: Nabil Gaber
+ID: 144, Name: ahmed hassan
+ID: 146, Name: khaled ali
+ID: 145, Name: sara mohamed
+
+--- COURSES ---
+ID: 1, Name: HTML
+ID: 2, Name: Network
+ID: 3, Name: Introduction to Programming
+ID: 4, Name: Web Development Basics
+ID: 5, Name: Database Design
+ID: 6, Name: Network Fundamentals
+ID: 7, Name: Artificial Intelligence Concepts
+ID: 8, Name: Data Science Tools
+ID: 9, Name: Cloud Infrastructure
+ID: 10, Name: Computer Networks
+ID: 12, Name: Operating Systems Concepts
+ID: 13, Name: Frontend Development
+ID: 14, Name: Mobile App Development
+ID: 15, Name: Machine Learning Basics
+ID: 16, Name: Computer Vision Applications
+ID: 17, Name: Natural Language Processing
+ID: 18, Name: Robotics Engineering
+ID: 19, Name: Cyber Forensics Fundamentals
+ID: 20, Name: Information Security Principles
+ID: 21, Name: Big Data Analytics
+ID: 22, Name: IoT Applications
+ID: 23, Name: Embedded Systems Design
+ID: 24, Name: Computer Graphics
+ID: 25, Name: Human Computer Interaction
+ID: 26, Name: Software Testing Techniques
+ID: 27, Name: DevOps Practices
+ID: 28, Name: Game Development
+ID: 29, Name: Virtual Reality Development
+ID: 30, Name: Augmented Reality Development
+ID: 31, Name: Digital Transformation Strategies
+ID: 32, Name: Systems Architecture
+ID: 33, Name: IT Project Management
+ID: 34, Name: Business Intelligence Tools
+ID: 35, Name: E-Commerce Systems
+ID: 36, Name: Health Informatics
+ID: 37, Name: Smart Cities Technologies
+ID: 38, Name: Blockchain Applications
+ID: 39, Name: Quantum Computing Basics
+ID: 40, Name: Digital Marketing Technologies
+ID: 41, Name: ERP Systems
+ID: 42, Name: CRM Systems
+ID: 43, Name: FinTech Applications
+ID: 44, Name: Cloud Security
