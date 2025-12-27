@@ -30,9 +30,10 @@ const getAvailableExams = async (req, res) => {
         request.input("crs_id", sql.Int, courseId);
         // List exams for course. 
         const result = await request.query(`
-            SELECT ex_id, total_score, duration 
-            FROM Exam 
-            WHERE crs_id = @crs_id
+            SELECT e.ex_id, e.total_score, e.duration, i.ins_id, i.ins_name 
+            FROM Exam e
+            INNER JOIN Instructor i ON e.ins_id = i.ins_id
+            WHERE e.crs_id = @crs_id
         `);
         res.json(result.recordset);
     } catch (err) {

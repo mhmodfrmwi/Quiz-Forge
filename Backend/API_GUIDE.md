@@ -74,7 +74,9 @@ List active exams for a specific course.
       {
         "ex_id": 1,
         "total_score": 100,
-        "duration": 60
+        "duration": 60,
+        "ins_id": 101,
+        "ins_name": "Instructor Name"
       }
     ]
     ```
