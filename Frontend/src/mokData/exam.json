@@ -1,0 +1,88 @@
+{
+    "exam_id": 2,
+    "total_score": 50,
+    "date": "2024-07-01",
+    "duration": 15,
+   "questions": [
+      {
+        "q_id": 10,
+        "q_text": "Which keyword is used to declare a variable that can be reassigned?",
+        "q_type": "mcq",
+        "correct_choice": "let",
+        "wrong_choices": ["const", "fixed", "immutable"],
+        "score": 5
+      },
+      {
+        "q_id": 11,
+        "q_text": "JavaScript is a statically typed programming language.",
+        "q_type": "tf",
+        "correct_choice": "False",
+        "wrong_choices": [],
+        "score": 5
+      },
+      {
+        "q_id": 12,
+        "q_text": "What is the output of 'typeof null' in JavaScript?",
+        "q_type": "mcq",
+        "correct_choice": "object",
+        "wrong_choices": ["null", "undefined", "string"],
+        "score": 5
+      },
+      {
+        "q_id": 13,
+        "q_text": "The '===' operator checks for both value and type equality.",
+        "q_type": "tf",
+        "correct_choice": "True",
+        "wrong_choices": [],
+        "score": 5
+      },
+      {
+        "q_id": 14,
+        "q_text": "Which method is used to add an element to the end of an array?",
+        "q_type": "mcq",
+        "correct_choice": "push()",
+        "wrong_choices": ["pop()", "shift()", "unshift()"],
+        "score": 5
+      },
+      {
+        "q_id": 15,
+        "q_text": "Arrow functions have their own 'this' context.",
+        "q_type": "tf",
+        "correct_choice": "False",
+        "wrong_choices": [],
+        "score": 5
+      },
+      {
+        "q_id": 16,
+        "q_text": "Which of the following is NOT a JavaScript data type?",
+        "q_type": "mcq",
+        "correct_choice": "Character",
+        "wrong_choices": ["String", "Boolean", "Number"],
+        "score": 5
+      },
+      {
+        "q_id": 17,
+        "q_text": "The 'NaN' (Not-a-Number) value is equal to itself (NaN === NaN).",
+        "q_type": "tf",
+        "correct_choice": "False",
+        "wrong_choices": [],
+        "score": 5
+      },
+      {
+        "q_id": 18,
+        "q_text": "Which symbol is used for single-line comments in JavaScript?",
+        "q_type": "mcq",
+        "correct_choice": "//",
+        "wrong_choices": ["/*", "#", "--"],
+        "score": 5
+      },
+      {
+        "q_id": 19,
+        "q_text": "JavaScript can be executed on both the client-side and server-side.",
+        "q_type": "tf",
+        "correct_choice": "True",
+        "wrong_choices": [],
+        "score": 5
+      }
+    ]
+}

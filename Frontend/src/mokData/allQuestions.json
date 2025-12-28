@@ -1,0 +1,29 @@
+[
+  {
+    "q_id": 10,
+    "q_text": "Which keyword is used for constants?",
+    "q_type": "mcq",
+    "correct_choice": "const",
+    "wrong_choices": ["var", "let"],
+    "score": 5,
+    "course": "JavaScript"
+  },
+  {
+    "q_id": 11,
+    "q_text": "Is JS single threaded?",
+    "q_type": "tf",
+    "correct_choice": "True",
+    "wrong_choices": [],
+    "score": 5,
+    "course": "JavaScript"
+  },
+  {
+    "q_id": 12,
+    "q_text": "What is 2 + '2'?",
+    "q_type": "mcq",
+    "correct_choice": "22",
+    "wrong_choices": ["4", "NaN", "Error"],
+    "score": 5,
+    "course": "JavaScript"
+  }
+]
