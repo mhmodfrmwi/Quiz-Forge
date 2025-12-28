@@ -1,4 +1,4 @@
-const { sql, connectDB } = require("./src/config/dbConfig");
+const { sql, connectDB } = require("../src/config/dbConfig");
 const fs = require('fs');
 
 async function checkData() {
