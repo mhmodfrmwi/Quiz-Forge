@@ -11,7 +11,7 @@ This guide details every endpoint, its required inputs, and expected outputs. Us
 ## 1. Authentication
 
 ### User Login
-Authenticate a user (Student or Instructor) and receive their profile details.
+Authenticate a user (Student, Instructor, or Admin) and receive their profile details.
 
 *   **Method:** `POST`
 *   **Endpoint:** `/api/auth/login`
@@ -29,7 +29,7 @@ Authenticate a user (Student or Instructor) and receive their profile details.
       "fname": "Ahmed",
       "lname": "Mohamed",
       "email": "student@test.com",
-      "role": "student"
+      "role": "student" // or "instructor" or "admin"
     }
     ```
     *(Note: Output structure depends on the columns selected in `sp_login_universal`. It returns the user record if valid.)*
@@ -37,6 +37,25 @@ Authenticate a user (Student or Instructor) and receive their profile details.
 ---
 
 ## 2. Student Module
+
+### Assign Student to Course
+Enroll a student in a specific course.
+
+*   **Method:** `POST`
+*   **Endpoint:** `/api/student/assign-course`
+*   **Request Body:**
+    ```json
+    {
+      "studentId": 1,
+      "courseId": 101
+    }
+    ```
+*   **Success Response:**
+    ```json
+    {
+      "message": "Student assigned to course successfully"
+    }
+    ```
 
 ### Get Enrolled Courses
 List all courses the student is enrolled in.
@@ -176,23 +195,6 @@ List all available courses in the system.
     ]
     ```
 
-### Assign Student to Course
-Enroll a student in a specific course.
-
-*   **Method:** `POST`
-*   **Endpoint:** `/api/courses/assign`
-*   **Request Body:**
-    ```json
-    {
-      "st_id": 1,
-      "crs_id": 101
-    }
-    ```
-*   **Success Response:**
-    ```json
-    {
-      "message": "Student assigned to course successfully"
-    }
     ```
 
 ### Get Course Topics
