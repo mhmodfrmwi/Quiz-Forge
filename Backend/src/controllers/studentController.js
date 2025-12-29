@@ -161,10 +161,35 @@ const getStudentReport = async (req, res) => {
     }
 }
 
+
+
+const assignStudentToCourse = async (req, res) => {
+    const { studentId, courseId } = req.body;
+    try {
+        const request = new sql.Request();
+        request.input("st_id", sql.Int, studentId);
+        request.input("crs_id", sql.Int, courseId);
+        
+        // Check if already assigned
+        const check = await request.query("SELECT * FROM st_crs_grade WHERE st_id = @st_id AND crs_id = @crs_id");
+        if (check.recordset.length > 0) {
+            return res.status(400).json({ message: "Student already assigned to this course" });
+        }
+
+        // Assign
+        await request.query("INSERT INTO st_crs_grade (st_id, crs_id, grade) VALUES (@st_id, @crs_id, NULL)");
+        res.json({ message: "Student assigned to course successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
 module.exports = {
     getStudentCourses,
     getAvailableExams,
     getExamQuestions,
     submitExamAnswers,
-    getStudentReport
+    getStudentReport,
+    assignStudentToCourse
 };
+
