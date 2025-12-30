@@ -41,35 +41,44 @@ const getAvailableExams = async (req, res) => {
     }
 };
 
-// 3. Get questions for an exam
+// 3. Get questions for an exam (with Timer Logic)
 const getExamQuestions = async (req, res) => {
     const { examId } = req.params;
+    const { studentId } = req.query; // Need studentId to track attempt
+
+    if (!studentId) {
+        return res.status(400).json({ error: "Student ID is required in query params (e.g., ?studentId=1)" });
+    }
+
     try {
-        const request = new sql.Request();
-        request.input("ex_id", sql.Int, examId);
-        // Using SP_ExamQuestionsChoices as identified
-        // Wait, SP_ExamQuestionsChoices might be the administration one? 
-        // Let's check sp_exam_question_r_by_exam which returns questions with choices
-        // But for STUDENT we shouldn't show 'correct' answer ideally?
-        // The SP sp_exam_question_r_by_exam created in update_schema.js:
-        // select eq.ex_id, q.q_text, q.q_type, eq.degree, c.choice_text ...
-        // It DOES NOT return correct choice explicitly in the select list I wrote? 
-        // Wait, let's check update_schema.js content again.
-        // It selects: q.q_text, q.q_type, eq.degree, c.choice_text. 
-        // It does NOT select q.correct_choice. So it is safe for students.
-        // But wait, choices are joined. We need to format them nicely (group choices under question).
+        const pool = await sql.connect(); // Ensure we have a pool to use transaction if needed? or just sequential
         
-        const result = await request.execute("sp_exam_question_r_by_exam");
+        // 1. Get/Set Start Time
+        const timeReq = new sql.Request();
+        timeReq.input("st_id", sql.Int, studentId);
+        timeReq.input("ex_id", sql.Int, examId);
+        const timeResult = await timeReq.execute("sp_student_exam_start");
+        const startTime = timeResult.recordset[0].start_time;
+
+        // 2. Get Exam Duration & Questions
+        const qReq = new sql.Request();
+        qReq.input("ex_id", sql.Int, examId);
         
-        // Grouping logic might be needed on frontend or here. 
-        // Let's send raw recordset for now, frontend can handle or we can group.
-        // To be helpful, let's group if multiple rows per question (for choices).
+        // Fetch questions using existing SP
+        const result = await qReq.execute("sp_exam_question_r_by_exam");
         
+        // Fetch Exam Duration separately (or assume frontend knows? Better to send it)
+        const durReq = new sql.Request();
+        durReq.input("ex_id", sql.Int, examId);
+        const examDetails = await durReq.query("SELECT duration FROM Exam WHERE ex_id = @ex_id");
+        const durationMinutes = examDetails.recordset[0]?.duration || 60;
+
+        // Group questions
         const questions = {};
         result.recordset.forEach(row => {
             if (!questions[row.q_text]) {
                 questions[row.q_text] = {
-                    q_id: row.q_id, // Add q_id for submission reference
+                    q_id: row.q_id,
                     text: row.q_text,
                     type: row.q_type,
                     degree: row.degree,
@@ -80,8 +89,16 @@ const getExamQuestions = async (req, res) => {
                 questions[row.q_text].choices.push(row.choice_text);
             }
         });
-        
-        res.json(Object.values(questions));
+
+        // Response with Timer Info
+        res.json({
+            examId: parseInt(examId),
+            startTime: startTime,
+            durationMinutes: durationMinutes,
+            serverTime: new Date(),
+            questions: Object.values(questions)
+        });
+
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -184,12 +201,26 @@ const assignStudentToCourse = async (req, res) => {
     }
 }
 
+// 7. Get All Students
+const getAllStudents = async (req, res) => {
+    try {
+        const request = new sql.Request();
+        const result = await request.query("SELECT * FROM Student");
+        res.json(result.recordset);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 module.exports = {
     getStudentCourses,
     getAvailableExams,
     getExamQuestions,
     submitExamAnswers,
     getStudentReport,
-    assignStudentToCourse
+    assignStudentToCourse,
+    getAllStudents
 };
+
+
 

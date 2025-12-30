@@ -81,9 +81,26 @@ const generateExam = async (req, res) => {
     getQuestionsReq.input("ex_id", sql.Int, ex_id);
     const questionsResult = await getQuestionsReq.execute("sp_exam_question_r_by_exam");
 
+    const questionsMap = {};
+    questionsResult.recordset.forEach((row) => {
+      if (!questionsMap[row.q_id]) {
+        questionsMap[row.q_id] = {
+          ex_id: row.ex_id,
+          q_id: row.q_id, // Ensure q_id is part of the object
+          q_text: row.q_text,
+          q_type: row.q_type,
+          degree: row.degree,
+          choices: [],
+        };
+      }
+      if (row.choice_text) {
+        questionsMap[row.q_id].choices.push(row.choice_text);
+      }
+    });
+
     res.json({ 
         message: "Exam generated successfully (Draft Mode)", 
-        questions: questionsResult.recordset 
+        questions: Object.values(questionsMap) 
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

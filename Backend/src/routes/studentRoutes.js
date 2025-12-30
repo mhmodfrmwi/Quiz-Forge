@@ -8,5 +8,6 @@ router.get('/exam/:examId/questions', studentController.getExamQuestions);
 router.post('/exam/submit', studentController.submitExamAnswers);
 router.get('/:id/report', studentController.getStudentReport);
 router.post('/assign-course', studentController.assignStudentToCourse);
+router.get('/', studentController.getAllStudents);
 
 module.exports = router;

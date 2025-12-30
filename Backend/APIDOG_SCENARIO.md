@@ -28,8 +28,10 @@ Follow this end-to-end workflow to verify the Exam System features, including th
 
 5.  **Generate Questions** (Fix Verification)
     *   **Request:** `POST /api/exams/generate`
-    *   **Body:** `{ "ex_id": 50, "mcq_cnt": 7, "tf_cnt": 0, "mode": "default" }`
-    *   **Check:** The `questions` array in the response should have exactly **7 items**. (This verifies the off-by-one fix).
+    *   **Body:** `{ "ex_id": 50, "mcq_cnt": 2, "tf_cnt": 2, "mode": "random" }`
+    *   **Check:**
+        *   The `questions` array should have **exactly 4 items**.
+        *   Verify there are **2 MCQ** questions and **2 True/False** questions.
 
 ## Phase 3: Student Workflow (Taking Exam)
 
@@ -42,9 +44,13 @@ Follow this end-to-end workflow to verify the Exam System features, including th
     *   **Request:** `GET /api/student/1/courses`
     *   **Check:** Ensure Course `101` (from Step 2) is listed.
 
-8.  **Get Exam Questions**
-    *   **Request:** `GET /api/student/exam/50/questions`
-    *   **Check:** You should see the questions generated in Step 5.
+8.  **Get Exam Questions** (Timer Verification)
+    *   **Request 1**: `GET /api/student/exam/50/questions?studentId=1`
+    *   **Check 1**: Note the `startTime` value in the response (e.g., "2023-10-27T10:00:00").
+    *   **Action**: Wait for 5-10 seconds.
+    *   **Request 2**: Click **Send** again (Simulate Refresh).
+    *   **Check 2**: Verify `startTime` is **EXACTLY THE SAME** as in Check 1. This confirms the server is remembering the start time.
+    *   **Check 3**: Verify `questions` are returned.
 
 9.  **Submit Exam**
     *   **Request:** `POST /api/student/exam/submit`
@@ -62,4 +68,7 @@ Follow this end-to-end workflow to verify the Exam System features, including th
 
 10. **Check Student Report**
     *   **Request:** `GET /api/student/1/report`
-    *   **Check:** You should see a grade entry for Course `101`.
+    *   **Check:**
+        *   Response should be a JSON array.
+        *   Look for an entry with `crs_id: 101` (or your course ID).
+        *   Verify fields: `crs_name`, `grade`, `status` ("Pass" or "Fail").

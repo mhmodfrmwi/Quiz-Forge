@@ -38,6 +38,23 @@ Authenticate a user (Student, Instructor, or Admin) and receive their profile de
 
 ## 2. Student Module
 
+### Get All Students
+Retrieve a list of all registered students.
+
+*   **Method:** `GET`
+*   **Endpoint:** `/api/student`
+*   **Success Response:**
+    ```json
+    [
+      {
+        "st_id": 1,
+        "st_name": "Ahmed Mohamed",
+        "st_email": "student@test.com",
+        "Dept_id": 10
+      }
+    ]
+    ```
+
 ### Assign Student to Course
 Enroll a student in a specific course.
 
@@ -125,6 +142,12 @@ Retrieve questions and choices for a specific exam. This is the "Draft" or "Take
     ]
     ```
 
+    > **Frontend Note (Timer):**
+    > The response object now contains `startTime` and `durationMinutes`.
+    > *   **Action**: Remove any `localStorage` timer logic.
+    > *   **Calculation**: `EndTime = new Date(startTime) + (durationMinutes * 60000)`.
+    > *   **Display**: `Assuming Now = new Date()`, show `EndTime - Now`.
+    
 ### Submit Exam Answers
 Submit the student's answers for grading.
 
@@ -168,9 +191,10 @@ Retrieve a report of grades for all courses taken by the student.
     ```json
     [
       {
-        "st_id": 1,
+        "crs_name": "Database Systems",
         "crs_id": 101,
-        "grade": 85
+        "grade": 85,
+        "status": "Pass"
       }
     ]
     ```
