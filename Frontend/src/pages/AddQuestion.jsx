@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import InstructorSidebar from "../component/InstructorSidebar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddQuestion = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -9,7 +10,7 @@ const AddQuestion = () => {
   const [savedQuestions, setSavedQuestions] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
   const [topic, setTopic] = useState([]);
-
+  const navigate=useNavigate
   const [questionData, setQuestionData] = useState({
     q_text: "",
     q_type: "mcq",
@@ -79,6 +80,7 @@ const AddQuestion = () => {
         score: 5,
         top_id: topic.length > 0 ? topic[0].top_id : 1,
       });
+      navigate('/question-bank');
     } catch (err) {
       console.error("Error adding question or choices:", err);
       alert("Failed to save question. Please try again.");

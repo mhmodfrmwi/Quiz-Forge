@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const StudentSidebar = ({ sidebarOpen, toggleSidebar }) => {
   // const user = JSON.parse(localStorage.getItem('user')) ;
@@ -13,18 +13,18 @@ const StudentSidebar = ({ sidebarOpen, toggleSidebar }) => {
            <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r flex flex-col items-center py-8 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
                 <div className="text-2xl font-bold text-purple-600 mb-10">ITI</div>
                 <nav className="w-full space-y-6 px-4">
-                  <Link to="/student-dashboard" className="block p-3 bg-purple-50 text-purple-600 rounded-xl cursor-pointer font-medium"> 
+                  <NavLink to="/student-dashboard" className="block text-slate-400 p-3 rounded-xl cursor-pointer font-medium"> 
                     <span className="ml-2">Home</span>
-                  </Link>
-                  <Link to="/my-courses" className="block p-3 text-slate-400 hover:text-purple-600 cursor-pointer font-medium hover:bg-purple-50 rounded-xl transition-colors"> 
+                  </NavLink>
+                  <NavLink to="/my-courses" className="block p-3 text-slate-400 hover:text-purple-600 cursor-pointer font-medium hover:bg-purple-50 rounded-xl transition-colors"> 
                     <span className="ml-2">My Courses</span>
-                  </Link>
-                  <Link to="/my-grades" className="block p-3 text-slate-400 hover:text-purple-600 cursor-pointer font-medium hover:bg-purple-50 rounded-xl transition-colors"> 
+                  </NavLink>
+                  <NavLink to="/my-grades" className="block p-3 text-slate-400 hover:text-purple-600 cursor-pointer font-medium hover:bg-purple-50 rounded-xl transition-colors"> 
                     <span className="ml-2">My Grades</span>
-                  </Link>
-                  {/* <Link to="/achievements" className="p-3 text-slate-400 hover:text-purple-600 cursor-pointer font-medium hover:bg-purple-50 rounded-xl transition-colors"> 
+                  </NavLink>
+                  {/* <NavLink to="/achievements" className="p-3 text-slate-400 hover:text-purple-600 cursor-pointer font-medium hover:bg-purple-50 rounded-xl transition-colors"> 
                     <span className="ml-2">Achievements</span>
-                  </Link> */}
+                  </NavLink> */}
                 </nav>
                 
                 {/* <div className="mt-auto flex flex-col items-center p-4 lg:hidden">

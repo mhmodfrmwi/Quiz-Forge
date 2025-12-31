@@ -15,6 +15,7 @@ import InstructorExams from './pages/InstructorExams'
 import StudentCourse from './pages/StudentCourse'
 import StudentExams from './pages/StudentExams'
 import StudentGrades from './pages/StudentGrades'
+import AssignStudent from './pages/AssignStudent'
 
 function App() {
 
@@ -73,7 +74,7 @@ function App() {
             <QuestionBank/>
           </ProtectedRoute>
         } />
-      <Route path="/all_exams" element={
+      <Route path="/all-exams" element={
          <ProtectedRoute allowedRoles={["instructor"]}>
             <AllExams/>
           </ProtectedRoute>
@@ -81,6 +82,11 @@ function App() {
       <Route path="/instructor-exams" element={
          <ProtectedRoute allowedRoles={["instructor"]}>
             <InstructorExams/>
+          </ProtectedRoute>
+        } />
+      <Route path="/assign-student" element={
+         <ProtectedRoute allowedRoles={["instructor"]}>
+            <AssignStudent/>
           </ProtectedRoute>
         } />
       <Route path="/admin-dashboard" element={

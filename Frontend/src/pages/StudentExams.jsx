@@ -51,10 +51,10 @@ const StudentExams = () => {
   };
 
   // Calculate exam status
-  const getExamStatus = (exam) => {
-    // You can add logic here based on exam date, completion status, etc.
-    return "Upcoming"; // Default status
-  };
+  // const getExamStatus = (exam) => {
+  //   // You can add logic here based on exam date, completion status, etc.
+  //   return "Upcoming"; // Default status
+  // };
 
   // Get status badge color
   const getStatusColor = (status) => {
@@ -76,6 +76,9 @@ const StudentExams = () => {
     const mins = minutes % 60;
     return mins > 0 ? `${hours}h ${mins}m` : `${hours} hours`;
   };
+const sortedExams = [...exams].sort(
+  (a, b) => b.ex_id - a.ex_id
+);
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -188,8 +191,8 @@ const StudentExams = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {exams.map((exam) => {
-                    const status = getExamStatus(exam);
+                  {sortedExams.map((exam) => {
+                    // const status = getExamStatus(exam);
                     return (
                       <div
                         key={exam.ex_id}
@@ -207,7 +210,7 @@ const StudentExams = () => {
                               <div>
                                 <h3 className="text-lg font-bold text-slate-800">Exam #{exam.ex_id}</h3>
                                 <div className={`px-3 py-1 rounded-full text-xs font-medium inline-block mt-1 ${getStatusColor(status)}`}>
-                                  {status}
+                                  {/* {status} */}
                                 </div>
                               </div>
                             </div>

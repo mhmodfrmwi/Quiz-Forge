@@ -65,7 +65,9 @@ const AllExams = () => {
     return course ? course.crs_name : "Unknown Course";
   };
 
-  console.log(exams);
+  const sortedExams = [...exams].sort(
+  (a, b) => b.ex_id - a.ex_id
+);
   return (
     <div className="flex min-h-screen bg-slate-50">
       <InstructorSidebar
@@ -119,7 +121,7 @@ const AllExams = () => {
                 All Exams
               </h2>
               <Link
-                to="/add-exam"
+                to="/generate-exam"
                 className="bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors text-sm flex items-center"
               >
                 <svg
@@ -202,7 +204,7 @@ const AllExams = () => {
             </div>
           ) : (
             <div className="divide-y divide-slate-100">
-              {exams.map((exam) => (
+              {sortedExams.map((exam) => (
                 <div
                   key={exam.ex_id}
                   className="p-4 lg:p-6 hover:bg-slate-50 transition-colors"

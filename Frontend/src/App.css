@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+.active {
+  color: rgba(128, 0, 128, 0.744);
+  background: rgba(128, 0, 128, 0.063);
+}
+  

@@ -62,7 +62,9 @@ const QuestionBank = () => {
   const formatQuestionType = (type) => {
     return type.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
   };
-
+const sortedQuestions = [...questions].sort(
+  (a, b) => b.q_id - a.q_id
+);
   return (
     <div className="flex min-h-screen bg-slate-50">
       <InstructorSidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
@@ -148,7 +150,7 @@ const QuestionBank = () => {
             </div>
           ) : (
             <div className="divide-y divide-slate-100">
-              {questions.map((q) => (
+              {sortedQuestions.map((q) => (
                 <div key={q.q_id} className="p-4 lg:p-6 hover:bg-slate-50 transition-colors">
                   <div className="flex flex-col lg:flex-row lg:items-start gap-4">
                     <div className="flex-1">

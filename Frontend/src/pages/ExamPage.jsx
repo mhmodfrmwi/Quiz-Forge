@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ExamPage = () => {
   const { id } = useParams(); // examId
@@ -9,21 +9,16 @@ const ExamPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const studentId = user?.id;
-
+  const [exam, setExam] = useState(null);
   const [questions, setQuestions] = useState([]);
-  const { state } = useLocation();
-  const duration = state?.duration || 30;
-
+  const [timeLeft, setTimeLeft] = useState(null);
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(() => {
     return parseInt(localStorage.getItem("currentIndex")) || 0;
   });
 
   const [userAnswers, setUserAnswers] = useState(() => {
     return JSON.parse(localStorage.getItem("userAnswers")) || {};
-  });
-
-  const [timeLeft, setTimeLeft] = useState(() => {
-    return parseInt(localStorage.getItem("timeLeft")) || duration * 60;
   });
 
   const [shuffledOptions, setShuffledOptions] = useState([]);
@@ -34,33 +29,31 @@ const ExamPage = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/student/exam/${id}/questions`);
+        const res = await axios.get(`${apiUrl}/student/exam/${id}/questions`, {
+          params: { studentId },
+        });
+        setExam(res.data);
+        setQuestions(res.data.questions);
+         const endTime =
+        new Date(res.data.serverTime).getTime() +
+        res.data.durationMinutes *60* 1000;
 
-        // const groupedQuestions = Object.values(
-        //   res.data.reduce((acc, q) => {
-        //     if (!acc[q.q_id]) {
-        //       acc[q.q_id] = {
-        //         q_id: q.q_id,
-        //         text: q.text,
-        //         type: q.type,
-        //         choices: [],
-        //       };
-        //     }
-        //     if (q.choice_text) {
-        //       acc[q.q_id].choices.push(q.choice_text);
-        //     }
-        //     return acc;
-        //   }, {})
-        // );
+ 
+      const now = new Date().getTime();
 
-        setQuestions(res.data);
+      const remainingSeconds = Math.max(
+        Math.floor((endTime - now) / 1000),
+        0
+      );
+
+      setTimeLeft(remainingSeconds);
       } catch (err) {
         console.error("Error fetching exam:", err);
       }
     };
 
     fetchQuestions();
-  }, []);
+  }, [id]);
 
   const handleSubmit = async () => {
     if (!studentId) {
@@ -81,14 +74,15 @@ const ExamPage = () => {
 
       localStorage.removeItem("currentIndex");
       localStorage.removeItem("userAnswers");
-      localStorage.removeItem("timeLeft");
 
       alert("Exam submitted successfully");
+      navigate("/my-exams");
     } catch (err) {
       console.error("Submit error:", err);
     }
   };
   /* ================= TIMER ================= */
+
   useEffect(() => {
     if (!timeLeft) return;
 
@@ -126,10 +120,6 @@ const ExamPage = () => {
     localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
   }, [userAnswers]);
 
-  useEffect(() => {
-    localStorage.setItem("timeLeft", timeLeft);
-  }, [timeLeft]);
-
   /* ================= HANDLERS ================= */
   const handleSelect = (answer) => {
     setUserAnswers((prev) => ({
@@ -139,7 +129,7 @@ const ExamPage = () => {
   };
 
   if (!currentQ) return <h2 className="text-center mt-10">Loading...</h2>;
-
+console.log(exam);
   /* ================= UI ================= */
   return (
     <div className="max-w-[1280px] mx-auto p-4">
